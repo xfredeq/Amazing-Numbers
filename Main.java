@@ -3,18 +3,25 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
+
+    private static final String requests = "Supported requests:\n" +
+            "- enter a natural number to know its properties;\n" +
+            "- enter two natural numbers to obtain the properties of the list:\n" +
+            "  * the first parameter represents a starting number;\n" +
+            "  * the second parameter shows how many consecutive numbers are to be printed;\n" +
+            "- two natural numbers and properties to search for;\n" +
+            "- a property preceded by minus must not be present in numbers;\n" +
+            "- separate the parameters with one space;\n" +
+            "- enter 0 to exit.\n";
+
+    private static final String legalProperties = "BUZZ DUCK PALINDROMIC GAPFUL SPY EVEN ODD SQUARE SUNNY JUMPING HAPPY SAD";
+    private static final String[] exclusiveProperties = {"EVEN ODD", "DUCK SPY", "SUNNY SQUARE", "SAD HAPPY"};
+    private static final String availableProperties = "Available properties: [EVEN, ODD, BUZZ, DUCK, PALINDROMIC, GAPFUL, SPY, SQUARE, SUNNY, JUMPING, HAPPY, SAD]";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Amazing Numbers!\n");
-        System.out.println("Supported requests:\n" +
-                "- enter a natural number to know its properties;\n" +
-                "- enter two natural numbers to obtain the properties of the list:\n" +
-                "  * the first parameter represents a starting number;\n" +
-                "  * the second parameter shows how many consecutive numbers are to be printed;\n" +
-                "- two natural numbers and properties to search for;\n" +
-                "- a property preceded by minus must not be present in numbers;\n" +
-                "- separate the parameters with one space;\n" +
-                "- enter 0 to exit.\n");
+        System.out.println(requests);
 
         long n;
         long m;
@@ -25,27 +32,19 @@ public class Main {
             String[] arg = line.split(" ");
 
             switch (arg.length) {
-                case 0:
-                    System.out.println("Supported requests:\n" +
-                            "- enter a natural number to know its properties;\n" +
-                            "- enter two natural numbers to obtain the properties of the list:\n" +
-                            "  * the first parameter represents a starting number;\n" +
-                            "  * the second parameter shows how many consecutive numbers are to be printed;\n" +
-                            "- two natural numbers and properties to search for;\n" +
-                            "- a property preceded by minus must not be present in numbers;\n" +
-                            "- separate the parameters with one space;\n" +
-                            "- enter 0 to exit.\n");
+                case 0 -> {
+                    System.out.println(requests);
                     n = -1;
-                    break;
-                case 1:
+                }
+                case 1 -> {
                     try {
                         n = Long.parseLong(arg[0]);
                     } catch (NumberFormatException e) {
                         n = -1;
                     }
                     oneParam(n);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     try {
                         n = Long.parseLong(arg[0]);
                     } catch (NumberFormatException e) {
@@ -54,11 +53,11 @@ public class Main {
                     try {
                         m = Long.parseLong(arg[1]);
                     } catch (NumberFormatException e) {
-                        m=0;
+                        m = 0;
                     }
                     twoParams(n, m);
-                    break;
-                default:
+                }
+                default -> {
                     try {
                         n = Long.parseLong(arg[0]);
                     } catch (NumberFormatException e) {
@@ -67,16 +66,14 @@ public class Main {
                     try {
                         m = Long.parseLong(arg[1]);
                     } catch (NumberFormatException e) {
-                        m=0;
+                        m = 0;
                     }
-
                     String properties = "";
-                    for (int i = 2;i < arg.length; i++) {
-                        properties += arg[i] +' ';
+                    for (int i = 2; i < arg.length; i++) {
+                        properties += arg[i] + ' ';
                     }
-
-                    moreParams (n, m, properties.toUpperCase(Locale.ROOT));
-                    break;
+                    moreParams(n, m, properties.toUpperCase(Locale.ROOT));
+                }
             }
         } while (n != 0);
 
@@ -85,8 +82,6 @@ public class Main {
 
     private static void moreParams (long n, long m, String properties) {
         boolean czy = true;
-        String legalProperties = "BUZZ DUCK PALINDROMIC GAPFUL SPY EVEN ODD SQUARE SUNNY JUMPING HAPPY SAD";
-        String[] exclusiveProperties = {"EVEN ODD", "DUCK SPY", "SUNNY SQUARE", "SAD HAPPY"};
         if (n == 0) {
             return;
         }
@@ -109,7 +104,6 @@ public class Main {
                                 (property2.equals("-ODD") && property1.equals("-EVEN") ) ) {
                             System.out.println("The request contains mutually exclusive properties: [" + property1 + ", " + property2 + "]\n" +
                                     "There are no numbers with these properties.\n");
-                            czy = false;
                             return;
                         }
                     }
@@ -132,11 +126,9 @@ public class Main {
         if (!badProperties.equals("")) {
             badProperties = badProperties.substring(0, badProperties.length()-2);
             if (badProperties.split(", ").length == 1) {
-                System.out.println("The property [" + badProperties + "] is wrong.\n" +
-                        "Available properties: [EVEN, ODD, BUZZ, DUCK, PALINDROMIC, GAPFUL, SPY, SQUARE, SUNNY, JUMPING, HAPPY, SAD]");
+                System.out.println("The property [" + badProperties + "] is wrong.\n" + availableProperties);
             } else {
-                System.out.println("The properties [" + badProperties + "] are wrong.\n" +
-                        "Available properties: [EVEN, ODD, BUZZ, DUCK, PALINDROMIC, GAPFUL, SPY, SQUARE, SUNNY, JUMPING, HAPPY, SAD]");
+                System.out.println("The properties [" + badProperties + "] are wrong.\n" + availableProperties);
             }
         }
 
