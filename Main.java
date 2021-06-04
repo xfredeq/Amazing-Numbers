@@ -119,7 +119,6 @@ public class Main {
             }
         }
 
-
         String badProperties = "";
         for (String property : properties.split(" ")) {
             if (!legalProperties.contains(property) && !legalProperties.contains(property.replace("-", ""))) {
@@ -131,6 +130,7 @@ public class Main {
                 czy = false;
             }
         }
+
         if (!badProperties.equals("")) {
             badProperties = badProperties.substring(0, badProperties.length()-2);
             if (badProperties.split(", ").length == 1) {
@@ -141,7 +141,6 @@ public class Main {
                         "Available properties: [EVEN, ODD, BUZZ, DUCK, PALINDROMIC, GAPFUL, SPY, SQUARE, SUNNY, JUMPING, HAPPY, SAD]");
             }
         }
-
 
         if (czy) {
             long i = n;
@@ -255,6 +254,7 @@ public class Main {
                             break;
                     }
                 }
+
                 if (c) {
                     m--;
                     showProperties(i);
@@ -263,7 +263,6 @@ public class Main {
             }
             System.out.println();
         }
-
     }
 
     private static void twoParams (long n, long m) {
