@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Main {
+public class Amazing_Numbers {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Amazing Numbers!\n");
